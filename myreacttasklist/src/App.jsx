@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import './app.css'
+import form from './components/Form';
+import { Code } from '@chakra-ui/react';
 
+<Code>
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  form;
   
   useEffect(() => {
-    // Cargar las tareas almacenadas en localStorage al cargar la aplicación
     const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     setTasks(storedTasks);
   }, []);
 
   useEffect(() => {
-    // Almacenar las tareas en localStorage cada vez que cambie la lista de tareas
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
@@ -35,7 +38,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Lista de Tareas</h1>
+      <h1>To do app</h1>
       <input
         type="text"
         placeholder="Nueva tarea"
@@ -63,5 +66,8 @@ function App() {
 }
 
 export default App;
+
+</Code>
+
 
 
