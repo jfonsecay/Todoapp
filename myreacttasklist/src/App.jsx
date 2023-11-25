@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './app.css'
-import form from './components/Form';
-import { Code } from '@chakra-ui/react';
+import { ChakraProvider, CSSReset, Box, Text, Input, Button, Checkbox, DarkMode } from '@chakra-ui/react';
+import './app.css';
 
-<Code>
 function App() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
-  form;
-  
+
   useEffect(() => {
     const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
     setTasks(storedTasks);
@@ -37,37 +34,47 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>To do app</h1>
-      <input
-        type="text"
-        placeholder="Nueva tarea"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-      />
-      <button onClick={addTask}>Agregar</button>
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => toggleTaskStatus(index)}
-            />
-            <span className={task.completed ? 'completed' : ''}>
-              {task.description}
-            </span>
-            <button onClick={() => deleteTask(index)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ChakraProvider>
+      <DarkMode>
+        <CSSReset />
+        <Box p={4} bg="gray.100">
+          <Text fontSize="2xl" fontWeight="bold" mb={4}>
+            To do app
+          </Text>
+          <Input
+            type="text"
+            placeholder="Nueva tarea"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            mb={2}
+          />
+          <Button colorScheme="teal" onClick={addTask} mb={4}>
+            Agregar
+          </Button>
+          <ul>
+            {tasks.map((task, index) => (
+              <li key={index} mb={2}>
+                <Checkbox
+                  isChecked={task.completed}
+                  onChange={() => toggleTaskStatus(index)}
+                  mr={2}
+                />
+                <Text className={task.completed ? 'completed' : ''}>{task.description}</Text>
+                <Button colorScheme="red" size="sm" ml={2} onClick={() => deleteTask(index)}>
+                  Eliminar
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </Box>
+      </DarkMode>
+    </ChakraProvider>
   );
 }
 
 export default App;
 
-</Code>
+
 
 
 
